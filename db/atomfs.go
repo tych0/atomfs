@@ -80,6 +80,7 @@ func (db *AtomfsDB) getAtoms(rows *sql.Rows) ([]types.Atom, error) {
 		if err != nil {
 			return nil, err
 		}
+		fmt.Println("got atom", atom.Name)
 		atoms = append(atoms, atom)
 	}
 
@@ -144,6 +145,8 @@ func (db *AtomfsDB) GetMolecule(name string) (types.Molecule, error) {
 			return types.Molecule{}, err
 		}
 	}
+
+	fmt.Printf("got molecule %s (%d)\n", mol.Name, mol.ID)
 
 	rows, err = db.DB.Query(`
 		SELECT atoms.id, atoms.name, atoms.hash, atoms.type
